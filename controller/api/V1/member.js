@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 
-const {RegisterValidator, loginValidator} = require('../../validators/member')
+const {RegisterValidator, loginValidator, listValidator, idValidator} = require('../../validators/member')
 const {Auth} = require('../../../middlewares/auth')
 const {generateToken} = require('../../../core/token')
 const {Member} = require('../../models/member')
@@ -48,10 +48,29 @@ router.post('/login', async (ctx) => {
 })
 
 /**
+ * 获取用户详情
+ */
+router.get('/:id', new Auth(1).m, async (ctx) => {
+  const v = await new idValidator().validate(ctx)
+
+  const member = await Member.detail(v.get('path.id'))
+
+  ctx.response.status = 200;
+  ctx.body = res.json(member)
+})
+/**
  * 用户列表
  */
-router.post('/memberList', async (ctx) => {
+router.post('/list', new Auth(2).m, async (ctx) => {
+  const v = await new listValidator().validate(ctx)
 
+  const list = await Member.list({
+    pageSize: v.get('body.pageSize'),
+    pageNum: v.get('body.pageNum')
+  })
+
+  ctx.response.status = 200;
+  ctx.body = res.json(list)
 })
 
 module.exports = router

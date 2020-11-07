@@ -45,7 +45,30 @@ class loginValidator extends LinValidator {
   }
 }
 
+class listValidator extends LinValidator {
+  constructor() {
+    super();
+    this.pageSize = [
+      new Rule('isInt', 'pageSize必须是整数')
+    ]
+    this.pageNum = [
+      new Rule('isInt', 'pageSize必须是整数')
+    ]
+  }
+}
+
+class idValidator extends LinValidator {
+  constructor() {
+    super()
+    this.id = [
+      new Rule('isInt', '用户id必须是整数')
+    ]
+  }
+}
+
 module.exports = {
   RegisterValidator,
-  loginValidator
+  loginValidator,
+  listValidator,
+  idValidator
 }

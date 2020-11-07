@@ -85,6 +85,28 @@ class Member extends Model {
   }
 
   /**
+   * @description 获取用户详情
+   * 
+   * @param {Number} id 用户id
+   */
+  static async detail(id) {
+    const member = await Member.findOne({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ['password','deleted_at', 'updated_at']
+      },
+    })
+
+    if (!member) {
+      throw new global.errors.NotFailed('无法获取用户信息')
+    }
+
+    return member
+  }
+
+  /**
    * @description 用户列表
    * 
    * @param {Number} pageNum 页数
@@ -93,15 +115,21 @@ class Member extends Model {
   static async list(params) {
     const {pageNum, pageSize} = params
 
-    const memberList = await Member.findAll({
+    const memberList = await Member.findAndCountAll({
       order: [
         ['id', 'DESC']
       ],
+      where: {
+        deleted_at: null
+      },
+      attributes: {
+        exclude: ['deleted_at', 'updated_at']
+      },
       limit: pageSize,
       offset: pageSize * (pageNum - 1)
     })
 
-    return memberList ? memberList : []
+    return memberList
   }
 }
 
