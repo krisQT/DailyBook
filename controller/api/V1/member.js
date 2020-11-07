@@ -1,3 +1,7 @@
+/**
+ * @description 用户相关api
+ * @author 秦志超
+ */
 const Router = require('koa-router')
 
 const {RegisterValidator, loginValidator, listValidator, idValidator} = require('../../validators/member')
@@ -25,7 +29,7 @@ router.post('/register', async (ctx) => {
     role: v.get('body.role')
   })
 
-  ctx.response.status = 200;
+  ctx.response.status = 200
   ctx.body = res.json(member)
 })
 
@@ -43,7 +47,7 @@ router.post('/login', async (ctx) => {
 
   let token = generateToken(member.id, member.role)
 
-  ctx.response.status = 200;
+  ctx.response.status = 200
   ctx.body = res.json(token)
 })
 
@@ -55,9 +59,10 @@ router.get('/:id', new Auth(1).m, async (ctx) => {
 
   const member = await Member.detail(v.get('path.id'))
 
-  ctx.response.status = 200;
+  ctx.response.status = 200
   ctx.body = res.json(member)
 })
+
 /**
  * 用户列表
  */
@@ -69,7 +74,7 @@ router.post('/list', new Auth(2).m, async (ctx) => {
     pageNum: v.get('body.pageNum')
   })
 
-  ctx.response.status = 200;
+  ctx.response.status = 200
   ctx.body = res.json(list)
 })
 
