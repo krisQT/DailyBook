@@ -68,7 +68,7 @@ class IdValidator extends LinValidator {
 
 module.exports = {
   RegisterValidator,
-  loginValidator,
-  listValidator,
-  idValidator
+  LoginValidator,
+  ListValidator,
+  IdValidator
 }

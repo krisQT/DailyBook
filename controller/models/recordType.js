@@ -10,7 +10,7 @@ const {Sequelize, Model} = require('sequelize')
 class RecordType extends Model {
   /**
    * 创建类型
-   * @param {recordTypeName} 流水类型名称 
+   * @param {String} recordTypeName 流水类型名称 
    */
   static async create(recordTypeName) {
     const isExist = await RecordType.findOne({
