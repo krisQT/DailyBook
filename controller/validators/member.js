@@ -29,7 +29,7 @@ class RegisterValidator extends LinValidator {
   }
 }
 
-class loginValidator extends LinValidator {
+class LoginValidator extends LinValidator {
   constructor() {
     super();
     this.email = [
@@ -45,7 +45,7 @@ class loginValidator extends LinValidator {
   }
 }
 
-class listValidator extends LinValidator {
+class ListValidator extends LinValidator {
   constructor() {
     super();
     this.pageSize = [
@@ -57,7 +57,7 @@ class listValidator extends LinValidator {
   }
 }
 
-class idValidator extends LinValidator {
+class IdValidator extends LinValidator {
   constructor() {
     super()
     this.id = [

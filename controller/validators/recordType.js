@@ -1,6 +1,6 @@
 const {Rule, LinValidator} = require('../../core/lin-validator-v2')
 
-class createValidator extends LinValidator {
+class CreateValidator extends LinValidator {
   constructor() {
     super()
     this.recordTypeName = [
@@ -10,5 +10,5 @@ class createValidator extends LinValidator {
 }
 
 module.exports = {
-  createValidator
+  CreateValidator
 }

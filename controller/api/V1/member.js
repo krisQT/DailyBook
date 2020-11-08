@@ -4,7 +4,7 @@
  */
 const Router = require('koa-router')
 
-const {RegisterValidator, loginValidator, listValidator, idValidator} = require('../../validators/member')
+const {RegisterValidator, LoginValidator, ListValidator, IdValidator} = require('../../validators/member')
 const {Auth} = require('../../../middlewares/auth')
 const {generateToken} = require('../../../core/token')
 const {Member} = require('../../models/member')
@@ -37,7 +37,7 @@ router.post('/register', async (ctx) => {
  * 登录
  */
 router.post('/login', async (ctx) => {
-  const v = await new loginValidator().validate(ctx)
+  const v = await new LoginValidator().validate(ctx)
 
   const member = await Member.verify({
     email: v.get('body.email'),
@@ -55,7 +55,7 @@ router.post('/login', async (ctx) => {
  * 获取用户详情
  */
 router.get('/:id', new Auth(1).m, async (ctx) => {
-  const v = await new idValidator().validate(ctx)
+  const v = await new IdValidator().validate(ctx)
 
   const member = await Member.detail(v.get('path.id'))
 
@@ -67,7 +67,7 @@ router.get('/:id', new Auth(1).m, async (ctx) => {
  * 用户列表
  */
 router.post('/list', new Auth(2).m, async (ctx) => {
-  const v = await new listValidator().validate(ctx)
+  const v = await new ListValidator().validate(ctx)
 
   const list = await Member.list({
     pageSize: v.get('body.pageSize'),

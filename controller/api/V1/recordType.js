@@ -4,7 +4,7 @@
  */
 const Router = require('koa-router')
 
-const {createValidator} = require('../../validators/recordType')
+const {CreateValidator} = require('../../validators/recordType')
 
 const {Auth} = require('../../../middlewares/auth')
 const {RecordType} = require('../../models/recordType')
@@ -18,7 +18,7 @@ const router = new Router({
 
 // 创建流水类型
 router.post('/create', new Auth(2).m , async (ctx) => {
-  const v = await new createValidator().validate(ctx)
+  const v = await new CreateValidator().validate(ctx)
   
   const recordType = await RecordType.create(v.get('body.recordTypeName'))
 
