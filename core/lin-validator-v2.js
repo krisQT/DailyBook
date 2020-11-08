@@ -72,7 +72,7 @@ class LinValidator {
   get(path, parsed = true) {
     if (parsed) {
       const value = get(this.parsed, path, null)
-      if (value == null) {
+      if (value === null) {
         const keys = path.split('.')
         const key = last(keys)
         return get(this.parsed.default, key)
@@ -147,7 +147,7 @@ class LinValidator {
 
       if (result.pass) {
         // 如果参数路径不存在，往往是因为用户传了空值，而又设置了默认值
-        if (param.path.length == 0) {
+        if (param.path.length === 0) {
           set(this.parsed, ['default', key], result.legalValue)
         } else {
           set(this.parsed, param.path, result.legalValue)
@@ -170,28 +170,28 @@ class LinValidator {
   _findParam(key) {
     let value
     value = get(this.data, ['query', key])
-    if (value) {
+    if (typeof value !== 'undefined') {
       return {
         value,
         path: ['query', key]
       }
     }
     value = get(this.data, ['body', key])
-    if (value) {
+    if (typeof value !== 'undefined') {
       return {
         value,
         path: ['body', key]
       }
     }
     value = get(this.data, ['path', key])
-    if (value) {
+    if (typeof value !== 'undefined') {
       return {
         value,
         path: ['path', key]
       }
     }
     value = get(this.data, ['header', key])
-    if (value) {
+    if (typeof value !== 'undefined') {
       return {
         value,
         path: ['header', key]
@@ -245,7 +245,7 @@ class RuleField {
   }
 
   validate(field) {
-    if (field == null) {
+    if (field === null) {
       // 如果字段为空
       const allowEmpty = this._allowEmpty()
       const defaultValue = this._hasDefault()

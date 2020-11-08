@@ -4,7 +4,7 @@
  */
 
 const {sequelize} = require('../../core/db')
-const {Sequelize, Model, Op} = require('sequelize')
+const {Sequelize, Model} = require('sequelize')
 
 
 class RecordType extends Model {

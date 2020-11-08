@@ -2,7 +2,7 @@ module.exports = {
   environment: 'dev',
   security: {
     secretKey: 'DailyBook@Key',
-    expiresIn: 60 * 60
+    expiresIn: 60 * 60 * 24 * 7
   },  
   mydql: {
     dbName: 'daily_book',

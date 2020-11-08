@@ -9,7 +9,6 @@ const {createValidator} = require('../../validators/recordType')
 const {Auth} = require('../../../middlewares/auth')
 const {RecordType} = require('../../models/recordType')
 const {Response} = require('../../lib/response')
-const { Member } = require('../../models/member')
 
 const res = new Response()
 

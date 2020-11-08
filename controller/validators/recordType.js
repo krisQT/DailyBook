@@ -4,7 +4,7 @@ class createValidator extends LinValidator {
   constructor() {
     super()
     this.recordTypeName = [
-      new Rule('isLength', 'recordTypeName不能为空',{min: 1})
+      new Rule('isLength', 'recordTypeName不能为空', {min: 1})
     ]
   }
 }
