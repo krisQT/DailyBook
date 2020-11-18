@@ -1,5 +1,5 @@
 /**
- * @description 流水相关人员
+ * @description 流水相关成员
  * @author 秦志超
  */
 
@@ -20,7 +20,7 @@ class Personnel extends Model {
     })
 
     if (isExist) {
-      throw new global.errors.Existing('人员名已存在')
+      throw new global.errors.Existing('成员名已存在')
     }
 
     const personnel = new Personnel()
@@ -45,7 +45,7 @@ class Personnel extends Model {
     })
 
     if (!personnel) {
-      throw new global.errors.NotFailed('分类不存在')
+      throw new global.errors.NotFailed('成员不存在')
     }
 
     personnel.name = name
@@ -70,9 +70,29 @@ class Personnel extends Model {
       attributes: {
         exclude: ['deleted_at', 'updated_at', 'created_at']
       },
+      order: [
+        ['sort', 'ASC'],
+      ]
     })
 
     return list
+  }
+
+  /**
+   * 删除成员
+   */
+  static async deletePerSonnel(id) {
+    const personnel = await Personnel.findOne({ 
+      where: { id } 
+    })
+
+    if (!personnel) {
+      throw new global.errors.NotFailed('成员不存在')
+    }
+
+    personnel.destroy()
+
+    return
   }
 }
 

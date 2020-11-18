@@ -16,7 +16,7 @@ class Auth {
 
       let errMsg = '无效的token'
       if (!tokenToken || !tokenToken.name) {
-        errMsg = '需要携带token值'
+        errMsg = '暂未登录'
         throw new global.errors.Forbidden(errMsg)
       }
 

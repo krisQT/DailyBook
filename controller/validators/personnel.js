@@ -33,7 +33,7 @@ class UpdateValidator extends LinValidator {
   }
 }
 
-class ListValidator extends LinValidator {
+class DeleteValidator extends LinValidator {
   constructor() {
     super()
     this.id = [
@@ -43,7 +43,7 @@ class ListValidator extends LinValidator {
 }
 
 module.exports = {
-  ListValidator,
   UpdateValidator,
-  CreateValidator
+  CreateValidator,
+  DeleteValidator
 }

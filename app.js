@@ -13,7 +13,7 @@ app.use(parse())
 
 Init.init(app)
 
-app.listen(8080, () => {
-  console.log('DailyBOOk service is listenning in 8080')
+app.listen(8989, () => {
+  console.log('DailyBOOk service is listenning in 8989')
 })
 
