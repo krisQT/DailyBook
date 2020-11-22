@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { Modal, Result, Button, Form, InputNumber, Input, Radio } from 'antd'
-import styles from '../index.less'
+import React, {useEffect} from 'react'
+import { Modal, Result, Button, Form, InputNumber, Input, Radio, Select } from 'antd'
+import styles from '../index.less';
 const formLayout = {
   labelCol: {
     span: 7,
@@ -11,8 +11,8 @@ const formLayout = {
 };
 
 const OperationModal = (props) => {
-  const [form] = Form.useForm()
-  const {done, visible, current, onDone, onCancel, onSubmit} = props
+  const [ form ] = Form.useForm()
+  const { visible, current, done, onDone, onCancel, onSubmit, firstLevelList} = props
 
   useEffect(() => {
     if (form && !visible) {
@@ -35,38 +35,45 @@ const OperationModal = (props) => {
     form.submit()
   }
 
-  const handleFinish = (values) => {
+  const handleFinish = () => {
     if (onSubmit) {
-      onSubmit(values, true);
+      onSubmit(form.getFieldValue())
     }
-  };
+  }
 
-  const modalFooter = done
+  const handleFirstLevel = (classify) => {
+    classify = JSON.parse(classify)
+    form.setFieldsValue({ 
+      parentId: classify.id,
+      parentName: classify.name
+    })
+  }
+
+  const modalFooter = done 
     ? {
-        footer: null,
-        onCancel: onDone
-      }
+      footer: null,
+      onCancel: onDone
+    }
     : {
-        okText: '保存',
-        onOk: handleSubmit,
-        onCancel,
-      }
+      okText: '保存',
+      onOk: handleSubmit,
+      onCancel,
+    }
   
   const getModalContent = () => {
     if (done) {
       return (
-        <Result 
+        <Result
           status="success"
           title="操作成功"
           extra={
-            <Button type="primary" onClick={onDone}>
-              知道了
-            </Button>
+            <Button type="primary" onClick={onDone}> 知道了</Button>
           }
           className={styles.formResult}
         />
       )
     }
+
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
         <Form.Item
@@ -81,6 +88,33 @@ const OperationModal = (props) => {
         >
           <InputNumber placeholder="请输入" />
         </Form.Item>
+        {
+          !current 
+          ?
+          <Form.Item
+            name="parentName"
+            label="一级分类"
+            rules={[
+              {
+                required: true,
+                message: '请选择一级分类',
+              },
+            ]}
+          >
+            <Select
+              placeholder="请选择"
+              allowClear
+              onChange={handleFirstLevel}
+            >
+              {
+                firstLevelList.map(classify => 
+                  <Select.Option value={JSON.stringify(classify)} key={classify.id}>{classify.name}</Select.Option>
+                )
+              }
+            </Select>
+          </Form.Item>
+          : null
+        }
         <Form.Item
           name="status"
           label="状态"
@@ -98,11 +132,11 @@ const OperationModal = (props) => {
         </Form.Item>
         <Form.Item
           name="name"
-          label="成员名称"
+          label="分类名称"
           rules={[
             {
               required: true,
-              message: '请输入成员名称',
+              message: '请输入分类名称',
             },
           ]}
         >
@@ -111,12 +145,12 @@ const OperationModal = (props) => {
       </Form>
     )
   }
-
+    
   return (
     <Modal
       forceRender
-      title={done ? null: `${current ? '编辑': '添加'}成员`}
-      className={styles.standardListForm}
+      title={done ? null : `${current ? '编辑': '添加'}分类` }
+      class={styles.standardListForm}
       width={640}
       bodyStyle={
         done
@@ -134,6 +168,7 @@ const OperationModal = (props) => {
       { getModalContent() }
     </Modal>
   )
+  
 }
 
 export default OperationModal

@@ -27,7 +27,7 @@ router.post('/create', new Auth(2).m , async (ctx) => {
 })
 
 //获取所有流水类型
-router.post('/list', new Auth(1).m, async (ctx) => {
+router.get('/list', new Auth(1).m, async (ctx) => {
   const list = await RecordType.list()
 
   ctx.response.status = 200

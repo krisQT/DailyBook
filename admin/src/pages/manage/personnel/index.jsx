@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, Button, Space, Modal, message } from 'antd';
-import { connect } from 'umi';
-import { PlusOutlined } from '@ant-design/icons';
-import OperationModal from './components/OperationModal';
-import styles from './index.less';
+import React, { useState, useEffect } from 'react'
+import { PageContainer } from '@ant-design/pro-layout'
+import { Card, Table, Button, Space, Modal, message } from 'antd'
+import { connect } from 'umi'
+import { PlusOutlined } from '@ant-design/icons'
+import OperationModal from './components/OperationModal'
+import styles from './index.less'
 
 export const Personnel = (props) => {
   const {
     loading,
     dispatch,
-    personnelList: {list}
+    personnelList: { list} 
   } = props
   const [done, setDone] = useState(false)
   const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(undefined)
+
   useEffect(() => {
     dispatch({
       type: 'personnelList/fetch'
@@ -22,13 +23,13 @@ export const Personnel = (props) => {
   }, [])
 
   const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
+    setVisible(true)
+    setCurrent(undefined)
+  }
 
 
-  const showEditModal = (personnelItem) => {
-    setCurrent(personnelItem)
+  const showEditModal = (personnel) => {
+    setCurrent(personnel)
     setVisible(true)
   }
 
@@ -47,7 +48,7 @@ export const Personnel = (props) => {
    * @param {Boolean} type true.默认编辑或者新建  false.启用
    */
   const handleSubmit = (values, type) => {
-    const id = current ? current.id : '';
+    const id = current ? current.id : ''
     dispatch({
       type: 'personnelList/submit',
       payload: {
@@ -83,23 +84,19 @@ export const Personnel = (props) => {
           id: personnelItem.id,
         },
         callback: _ => {
-          message.success('删除成功');
+          message.success('删除成功')
           dispatch({
             type: 'personnelList/fetch'
           })
         }
       }),
-    });
+    })
   }
 
   const columns = [
     {
       title: '排序',
       dataIndex: 'sort',
-    },
-    {
-      title: 'id',
-      dataIndex: 'id',
     },
     {
       title: '姓名',
@@ -127,7 +124,7 @@ export const Personnel = (props) => {
         </Space>
       ),
     },
-  ];
+  ]
 
   return (
     <>
@@ -167,4 +164,4 @@ export const Personnel = (props) => {
 export default connect(({ personnelList, loading }) => ({
   personnelList,
   loading: loading.effects['personnelList/fetch'],
-}))(Personnel);
+}))(Personnel)

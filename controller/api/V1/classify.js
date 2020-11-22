@@ -54,15 +54,10 @@ router.post('/update', new Auth(2).m, async (ctx) => {
 })
 
 // 删除分类
-router.post('/delete', new Auth(2).m, async (ctx) => {
-  const v = await new DeleteValidator().validate(ctx)
+router.delete('/:id', new Auth(2).m, async (ctx) => {
+  const v = await new DeleteValidator().validate(ctx) 
 
-  await Classify.deleteClassify({
-    id: v.get('body.id'),
-    name: v.get('body.name'),
-    sort: v.get('body.sort'),
-    status: v.get('body.status'),
-  })
+  await Classify.deleteClassify(v.get('path.id'))
 
   ctx.response.status = 200
   ctx.body = res.success()

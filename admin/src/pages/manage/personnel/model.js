@@ -26,7 +26,7 @@ const Model = {
       
       try {
         yield call(excuetor, payload)
-        if (callback) callback();
+        if (callback) callback()
       } catch (error) {
         console.log('error', error)
       }
@@ -35,7 +35,7 @@ const Model = {
     *deletePersonnel({payload, callback}, {call}) {
       try {
         yield call(deletePersonnel, payload.id)
-        if (callback) callback();
+        if (callback) callback()
       } catch (error) {
         console.log('error', error)
       }
@@ -46,10 +46,6 @@ const Model = {
     queryList(state, action) {
       return {...state, list: action.payload}
     },
-
-    appendList(state = {list: []}, action) {
-      return {...state, list: state.list.concat(action.payload)}
-    }
   }
 }
 

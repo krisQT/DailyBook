@@ -47,7 +47,7 @@ http.interceptors.response.use(
 );
 
 function _encode() {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGUiOjIsImlhdCI6MTYwNTQ0NzczOCwiZXhwIjoxNjA2MDUyNTM4fQ.JDMoO3FmMGrTWmDb1CR1cMeI-UIa8LJmaBMi3ExAfJQ';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsInJvbGUiOjIsImlhdCI6MTYwNjA1NjgxMywiZXhwIjoxNjA2NjYxNjEzfQ.JFn_PYDB8GAt4yL6xl4oFTUQQQ8Vo3IlEZFUO5YN8T0';
   const base64 = Base64.encode(token + ':');
   return 'Basic ' + base64
 }

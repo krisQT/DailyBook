@@ -75,8 +75,18 @@ class Classify extends Model {
   /**
    * @description 删除分类
    */
-  static async deleteClassify() {
+  static async deleteClassify(id) {
+    const classify = await Classify.findOne({ 
+      where: { id } 
+    })
 
+    if (!classify) {
+      throw new global.errors.NotFailed('分类不存在')
+    }
+
+    classify.destroy()
+
+    return
   }
 
   /**

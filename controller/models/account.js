@@ -49,7 +49,7 @@ class Account extends Model {
     })
 
     if (!account) {
-      throw new global.errors.NotFailed('分类不存在')
+      throw new global.errors.NotFailed('账户不存在')
     }
 
     account.name = name
@@ -74,8 +74,19 @@ class Account extends Model {
   /**
    * @description 删除账户
    */
-  static async deleteAccount() {
+  static async deleteAccount(id) {
     // 需要判断是否绑定用户，是否产生流水
+    const account = await Account.findOne({ 
+      where: { id } 
+    })
+
+    if (!account) {
+      throw new global.errors.NotFailed('分类不存在')
+    }
+
+    account.destroy()
+
+    return
   }
 
   /**
